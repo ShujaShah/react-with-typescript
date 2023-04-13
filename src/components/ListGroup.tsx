@@ -1,17 +1,24 @@
 import { MouseEvent, useState } from "react";
 
-function ListGroup() {
-  let items = ["New York", "London", "Rome", "Dubai", "Canada"];
+interface Props{
+    items: string[];
+    heading: string;
+}
+
+
+export let items = ["New York", "London", "Rome", "San Francisco", "Beijing"];
+
+function ListGroup({items, heading} : Props) {
   //items = [];
 
-  const [selectedIndex, setSelectedIndex] = useState(0); // selected index to zero means that we are selecting New York as default index 
+  const [selectedIndex, setSelectedIndex] = useState(0); // selected index to zero means that we are selecting New York as default index
 
   return (
     <>
       <div className="row">
         <div className="col-md-3"></div>
         <div className="col-md-6">
-          <h1>List</h1>
+          <h1>{heading}</h1>
           {items.length === 0 && <p>No Items Found</p>} {/** true And 1 = True | False And 1 = false */}
           <ul className="list-group">
             {items.map((item, index) => (
