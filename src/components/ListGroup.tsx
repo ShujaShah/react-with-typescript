@@ -1,14 +1,12 @@
 import { MouseEvent, useState } from "react";
 
-interface Props{
-    items: string[];
-    heading: string;
+interface Props {
+  items: string[];
+  heading: string;
+  onSelectItem: (item: string) => void;
 }
 
-
-export let items = ["New York", "London", "Rome", "San Francisco", "Beijing"];
-
-function ListGroup({items, heading} : Props) {
+function ListGroup({ items, heading, onSelectItem }: Props) {
   //items = [];
 
   const [selectedIndex, setSelectedIndex] = useState(0); // selected index to zero means that we are selecting New York as default index
@@ -25,7 +23,10 @@ function ListGroup({items, heading} : Props) {
               <li
                 className={selectedIndex === index ? "active list-group-item" : "list-group-item"}
                 key={item}
-                onClick={() => setSelectedIndex(index)}
+                onClick={() => {
+                  setSelectedIndex(index);
+                  onSelectItem(item);
+                }}
               >
                 {item}
               </li>

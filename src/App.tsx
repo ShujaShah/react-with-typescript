@@ -1,12 +1,11 @@
-import './App.css';
-import ListGroup from './components/ListGroup';
-import { items } from './components/ListGroup';
+import "./App.css";
+import ListGroup from "./components/ListGroup";
 
 function App() {
-  
-  return (
-  <ListGroup items = {items} heading='Cities'/>
-  )
+  let items = ["New York", "London", "Rome", "San Francisco", "Beijing"];
+  const handleSelectItem = (item: string) => {console.log(item)};
+
+  return <ListGroup items={items} heading="Cities" onSelectItem={handleSelectItem} />;
 }
 
-export default App
+export default App;
