@@ -13,7 +13,7 @@ function App() {
       <Alert>
         <span>Hello World!</span>
       </Alert>
-      <Button  children="Shuja" onSubmit={() => console.log("here i am submitting")} />
+      <Button  children="Submit" onSubmit={() => console.log("here i am submitting")} />
     </>
   );
 }
