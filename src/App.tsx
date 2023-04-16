@@ -1,27 +1,19 @@
 import { useState } from "react";
 import "./App.css";
-import Alert from "./components/Alert";
-import Button from "./components/Button";
-import ListGroup from "./components/ListGroup";
-import Like from "./components/Like";
+import Navbar from "./components/Navbar";
+import Cart from "./components/Cart";
 
 function App() {
-  // let items = ["New York", "London", "Rome", "San Francisco", "Beijing"];
-  // const handleSelectItem = (item: string) => {console.log(item)};
+  const [cart, setCart] = useState(["Product1", "Product 2", "Product 3"]);
 
-  const [alertVisible, setAlertVisible] = useState(false);
+  const submit = () => {
+    setCart([]);
+  };
 
   return (
     <>
-      {/* <ListGroup items={items} heading="Cities" onSelectItem={handleSelectItem} />; */}
-      {alertVisible && (
-        <Alert onClose={() => setAlertVisible(false)}>
-          <strong>Alert!</strong> Are you sure you want to submit?
-        </Alert>
-      )}
-      <Button children="Submit " onSubmit={() => setAlertVisible(true)} />
-
-      <Like onSubmit={() => console.log("Clicked")} />
+      <Navbar cartCount={cart.length} />
+      <Cart cartItems={cart} handleClick={submit} />
     </>
   );
 }
