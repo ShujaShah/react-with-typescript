@@ -6,7 +6,7 @@ interface Props {
 const Button = ({ children, onSubmit, color='success' }: Props) => {
   return (
     <div>
-      <button type="button" className={"btn btn-" + color} onClick={onSubmit}>
+      <button style={{borderColor: 'purple', margin:'20px'}} type="button" className={"btn btn-" + color} onClick={onSubmit}>
         {children}
       </button>
     </div>
