@@ -65,6 +65,7 @@ function App() {
     ],
   });
 
+  // here we need to update the product 1's quantity after clicking on the button
   const updatedCart = () => {
     setCart({
       ...cart,
