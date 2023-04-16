@@ -3,6 +3,7 @@ import "./App.css";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
+import Like from "./components/Like";
 
 function App() {
   // let items = ["New York", "London", "Rome", "San Francisco", "Beijing"];
@@ -19,6 +20,8 @@ function App() {
         </Alert>
       )}
       <Button children="Submit " onSubmit={() => setAlertVisible(true)} />
+
+      <Like onSubmit={() => console.log("Clicked")} />
     </>
   );
 }
