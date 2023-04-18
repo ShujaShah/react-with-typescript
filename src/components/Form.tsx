@@ -19,7 +19,7 @@ const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }, // to handle error for the validation..
+    formState: { errors, isValid }, // to handle error for the validation..
   } = useForm<FormData>({ resolver: zodResolver(schema) }); // these are the properties of the react-form-hook
 
   const onSubmit = (data: FieldValues) => {
@@ -41,7 +41,7 @@ const Form = () => {
         <input {...register("age", { valueAsNumber: true })} id="age" type="number" className="form-control" />
         {errors.age && <p className="text-danger">{errors.age.message}</p>}
       </div>
-      <button type="submit" className="btn btn-primary">
+      <button disabled={!isValid} type="submit" className="btn btn-primary">
         Submit
       </button>
     </form>
