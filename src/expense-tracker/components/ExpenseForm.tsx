@@ -1,26 +1,39 @@
 import { useForm, FieldValues } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import categories from "../categories";
+
+interface Props {
+  onSubmit: (data: ExpenseFormData) => void;
+}
 
 const schema = z.object({
-  description: z.string().min(3, { message: "Description must be atleast 5 characters" }),
-  amount: z.number({ invalid_type_error: "Amount is Required" }).min(1, { message: "Amount cannot be less than 1" }),
-  category: z.string({ invalid_type_error: "Category is Required" }),
+  description: z.string().min(3, { message: "Description must be atleast 5 characters" }).max(50),
+  amount: z
+    .number({ invalid_type_error: "Amount is Required" })
+    .min(1, { message: "Amount cannot be less than 1" })
+    .max(10000),
+  category: z.enum(categories, {
+    errorMap: () => ({ message: "category is required" }),
+  }),
 });
-type FormData = z.infer<typeof schema>;
+type ExpenseFormData = z.infer<typeof schema>;
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<ExpenseFormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
-  };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+        reset();
+      })}
+    >
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Description
@@ -38,9 +51,11 @@ const ExpenseForm = () => {
       <div className="mb-3">
         <select className="form-select" {...register("category")} id="category" aria-label="Please Choose an option">
           <option selected>Please Choose an option</option>
-          <option value="Groceries">Groceries</option>
-          <option value="Utilities">Utilities</option>
-          <option value="Entertainment">Entertainment</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
         {errors.category && <p className="text-danger">{errors.category.message}</p>}
       </div>
