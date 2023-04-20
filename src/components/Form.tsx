@@ -2,25 +2,9 @@ import React, { FormEvent, useRef, useState } from "react";
 import { useForm, FieldValues } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-// we create an interface that represents the shape of the form...
-// interface FormData {
-//   name: string;
-//   age: number;
-// }
-
-const schema = z.object({
-  name: z.string().min(3, { message: "Name must be atleast 3 characters long" }),
-  age: z.number({ invalid_type_error: "Age Field is Required" }).min(18, { message: "Age must be atleast 18" }),
-});
-
-type FormData = z.infer<typeof schema>; // we can also use type to store the structure of the form data...
 
 const Form = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid }, // to handle error for the validation..
-  } = useForm<FormData>({ resolver: zodResolver(schema) }); // these are the properties of the react-form-hook
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -29,19 +13,25 @@ const Form = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
-          Name
+          Description
         </label>
-        <input {...register("name")} id="name" type="text" className="form-control" />
-        {errors.name && <p className="text-danger">{errors.name.message}</p>}
+        <input {...register("description")} id="description" type="text" className="form-control" />
       </div>
       <div className="mb-3">
         <label htmlFor="age" className="form-label">
-          Age
+          Amount
         </label>
-        <input {...register("age", { valueAsNumber: true })} id="age" type="number" className="form-control" />
-        {errors.age && <p className="text-danger">{errors.age.message}</p>}
+        <input {...register("amount")} id="amount" type="number" className="form-control" />
       </div>
-      <button disabled={!isValid} type="submit" className="btn btn-primary">
+      <div className="mb-3">
+        <select className="form-select" {...register("category")} aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">Groceries</option>
+          <option value="2">Utilities</option>
+          <option value="3">Entertainment</option>
+        </select>
+      </div>
+      <button type="submit" className="btn btn-primary">
         Submit
       </button>
     </form>
