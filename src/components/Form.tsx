@@ -13,7 +13,7 @@ const schema = z.object({
   age: z.number({ invalid_type_error: "Age Field is Required" }).min(18, { message: "Age must be atleast 18" }),
 });
 
-type FormData = z.infer<typeof schema>; // we can also use type to store the structure of the form data
+type FormData = z.infer<typeof schema>; // we can also use type to store the structure of the form data...
 
 const Form = () => {
   const {
