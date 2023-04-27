@@ -5,6 +5,8 @@ import axios from "axios";
 interface User {
   id: number;
   name: string;
+  username: string;
+  email: string;
 }
 
 function App() {
@@ -15,7 +17,7 @@ function App() {
   return (
     <>
       {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
+        <li key={user.id}>{user.username}</li>
       ))}
     </>
   );
